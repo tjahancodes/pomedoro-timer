@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+  <meta charset ="UTF-8">
+  <meta name ="viewport"
+   content = "width=device-width, initial-scale=1.0">
+   <title> Pomodoro Timer</title>
+ <style>
+  body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+  
+    
+    min-height:100vh;
+    background:rgb(255, 253, 247);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  
+  }
+  .container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:2em;
+    color:rgb(189, 28, 84);
+    background-color:rgb(255, 218, 243);
+    border-radius:3em;
+    padding:3em 2em;  
+  
+  }
+  .title{
+    font-size:2em;
+  }
+  hr{
+  width:100%;
+  background-color:black;
+  height:1px;
+  border:none;
+  }
+  .timer{
+    font-size:4em;
+    font-weight:600;
+  }
+  .buttonwrapper{
+    display:flex;
+    gap:1emp;
+  
+  }
+  button{
+    font-size: 1em;
+    font-weight:800;
+    letter-spacing:2px;
+    padding:0.25em 1em;
+    cursor: pointer;
+    transition:0.2s ease-in-out;
+  }
+  button:hover{
+    transform:translateY(-10px);
+  }
+  #start{
+    background-color: rgb(211, 186, 234);
+  }
+  #stop{
+    background-color: rgb(225, 250, 241);
+  }
+  #reset{
+    background-color: rgb(255, 220, 174);
+  }
+</style>
+
+</head>
+<body>
+
+      <div class ="container">
+        <h1 class ="title"> Pomodoro Timer</h1>
+
+        <hr>
+
+        <p class ="timer" id ="timer">25:00</p>
+
+
+        <div class ="button-wrapper">
+          <button id="start">Start</button>
+          <button id="stop">Stop</button>
+          <button id="reset">Reset</button>
+
+        </div>
+        </div>
+
+
+        <script>
+        const start=document.getElementById("start");
+const stop=document.getElementById("stop");
+const reset =document.getElementById("reset");
+const timer =document.getElementById("timer");
+
+let timeLeft =1500;
+let interval;
+
+const updateTimer =()=> {
+  const minutes = Math.floor(timeLeft/60);const seconds =timeLeft % 60;
+
+  timer.innerHTML=`${minutes.toString().padStart(2,"0")}: ${seconds.toString()
+    .padStart(2,"0")}`;
+};
+
+  const startTimer = ()=>  {
+    interval =setInterval(() =>{
+      timeLeft--;
+      updateTimer();
+
+    if(timeLeft ===0){
+      clearInterval(interval);
+      alert("Time's Up");
+      updateTimer();
+    }
+    },
+    1000)
+    
+  }
+
+    if(timeLeft === 0){
+      clearInterval(interval);
+      alert("Time's up!");
+      timeLeft = 1500;
+      updateTimer();
+    }
+
+
+      
+      
+    
+  const stopTimer =() =>clearInterval(interval);
+
+  const resetTimer =() =>{
+    clearInterval(interval);
+    timeLeft=1500;
+    updateTimer();
+
+  }
+
+
+
+  start.addEventListener("click",startTimer);
+  stop.addEventListener("click",stopTimer);
+  reset.addEventListener("click",resetTimer);
+
+
+        
+   </script>
+
+ 
+</body>
+
+
+</html>
